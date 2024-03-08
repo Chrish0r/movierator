@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default-layout}">
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+    <div layout:fragment="content" class="mt-8">
+      <form action="#" th:action="@{/search-media}" method="GET" class="my-4 container" style="max-width: 350px">
+        <div class="row my-2">
+          <input type="text" name="searchTerm" class="form-control" th:placeholder="#{movie_series_title}"/>
+        </div>
+        <div class="row my-2">
+          <button type="submit" class="btn btn-primary" th:text="#{search}"></button>
+        </div>
+      </form>
+      <h2 th:text="#{results} + ':'"></h2>
+      <div th:each="result : ${results}" class="row result">
+        <div class="col">
+          <h5 th:text="${result.title}"></h5>
+        </div>
+        <div class="col">
+          <a th:href="${'/media/' + result.id}" th:text="#{go_to}"></a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default-layout}">
+<head>
+<title>Home</title>
+<meta http-equiv="refresh" content="3; URL=/login">
+</head>
+<body layout:fragment="content">
+	<div class="alert alert-success" role="alert">
+		<h3 th:text="#{success_sign_up}"></h3>
+	</div>
+
+	<div class="alert alert-info" role="alert">
+		<h5 th:text="#{login_now}"></h5>
+	</div>
+</body>
+</html>

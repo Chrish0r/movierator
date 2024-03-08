@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--/*  Each token will be replaced by their respective titles in the resulting page. */-->
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Movie
+	Rator</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+<script defer
+	src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+	
+</script>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						$("#locales")
+								.change(
+										function() {
+											var selectedOption = $('#locales')
+													.val();
+											var url = window.location.href;
+											if (selectedOption != '') {
+												if (url
+														.includes('?searchTerm=')) {
+
+													let params = (new URL(
+															document.location)).searchParams;
+													let searchTerm = params
+															.get("searchTerm");
+													window.location
+															.replace('?searchTerm='
+																	+ searchTerm
+																	+ '&lang='
+																	+ selectedOption);
+												} else {
+													window.location
+															.replace('?lang='
+																	+ selectedOption);
+												}
+											}
+										});
+					});
+</script>
+</head>
+<body>
+	<div class="container">
+		<div class="d-flex bd-highlight mb-3">
+			<div layout:fragment="header">
+				<div sec:authorize="hasAuthority('REGULAR_USER')">
+					<h4
+						th:text="#{hello} + ' ' + ${session.regularUserSession.user.login}">
+					</h4>
+				</div>
+
+				<div sec:authorize="hasAuthority('ADMIN')">
+					<h4 th:text="#{hello} + ' Admin'"></h4>
+				</div>
+
+				<div sec:authorize="hasAuthority('MODERATOR')">
+					<h4 th:text="#{hello} + ' Moderator'"></h4>
+				</div>
+
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active"><a class="nav-link"
+								th:href="@{/}">Home</a></li>
+
+							<li><a sec:authorize="hasAuthority('ADMIN')"
+								class="nav-link" th:href="@{/work-in-progress}" th:text="#{show_users}"></a></li>
+
+							<li sec:authorize="hasAuthority('REGULAR_USER')">
+								<div class="dropdown">
+									<button class="btn btn-secondary dropdown-toggle" type="button"
+										data-bs-toggle="dropdown" aria-expanded="false">
+										Account</button>
+									<ul class="dropdown-menu">
+										<li><a class="nav-link"
+											th:href="@{/user/update/{id}(id=${session.regularUserSession.user.id})}"
+											th:text="#{update_email}"></a></li>
+
+										<li><a class="nav-link"
+											th:href="@{/user/delete/{id}(id=${session.regularUserSession.user.id})}"
+											th:onclick="if(!(confirm('Are you sure you want to delete your account?') )) return false"
+											th:text="#{delete_account}"></a></li>
+									</ul>
+								</div>
+							</li>
+
+
+							<li><a sec:authorize="isAuthenticated()" class="nav-link"
+								th:onclick="if(!(confirm('Are you sure you want to log out?') )) return false"
+								th:href="@{/logout}">Logout</a></li>
+
+							<li><a style="margin-right: 10px;"
+								sec:authorize="isAnonymous()" class="btn btn-success"
+								th:href="@{/login}">Login</a></li>
+							<li><a style="margin-right: 10px;"
+								sec:authorize="isAnonymous()" class="btn btn-primary"
+								th:href="@{/user/add}">Register</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div layout:fragment="languageSelector">
+				<div class="ms-auto p-2 bd-highlight">
+					<select class="form-select" id="locales">
+						<option selected value="" th:text="#{change_language}"></option>
+						<option value="de" th:text="#{german}"></option>
+						<option value="eng" th:text="#{english}"></option>
+					</select>
+				</div>
+			</div>
+
+		</div>
+		<div layout:fragment="content">
+			<h1>Static content for prototyping purposes only</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				Praesent scelerisque neque neque, ac elementum quam dignissim
+				interdum. Phasellus et placerat elit. Lorem ipsum dolor sit amet,
+				consectetur adipiscing elit. Praesent scelerisque neque neque, ac
+				elementum quam dignissim interdum. Phasellus et placerat elit.</p>
+		</div>
+	</div>
+	<div id="footer" class="text-center mt-auto">
+		<hr>
+		Copyright &copy; OTH-R IM
+	</div>
+</body>
+</html>

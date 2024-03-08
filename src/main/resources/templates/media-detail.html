@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default-layout}">
+<head>
+<title>Home</title>
+</head>
+<body>
+	<div layout:fragment="content" class="text-center mt-8">
+		<h1 class="mt-5" th:text="${media.name}"></h1>
+		<h4 class="mt-3" th:text="#{avg_score} +': ' + ${media.avgRating}"></h4>
+		<div sec:authorize="hasAuthority('REGULAR_USER')">
+			<div class="d-flex flex-column w-50"
+				th:if="${hasUserAlreadyReviewed}">
+				<h3 th:text="#{your_review}"></h3>
+				<table class="border text-center table">
+					<thead class="border table-dark">
+						<tr>
+							<th class="border" scope="col" th:text="#{username}"></th>
+							<th class="border" scope="col" th:text="#{review}"></th>
+							<th class="border" scope="col" th:text="#{rating}"></th>
+							<th class="border" scope="col"></th>
+							<th class="border" scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="border" th:text="${userReview.user.login}">
+							<td class="border" th:text="${userReview.reviewText}"></td>
+							<td class="border" th:text="${userReview.rating}"></td>
+							<td class="border"><a class="btn btn-success"
+								th:href="${'/edit/'+ media.id}" th:text="#{edit}"></a></td>
+							<td class="border">
+								<form th:action="${'/deleteReview/' + userReview.id}"
+									method="get">
+									<button type="submit" class="btn btn-danger" name="mediaId"
+										 th:text="#{delete}"></button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="d-flex flex-column w-50"
+				th:if="${!hasUserAlreadyReviewed}">
+				<form action="#" th:action="${'/review/' + media.id}" method="post"
+					th:object="${reviewForm}">
+					<div class="form-group mb-3">
+						<h3 for="review" th:text="#{review}"></h3>
+						<div class="d-flex justify-content-between pb-2">
+							<h4 th:text="#{rating}" class="p-2 bd-highlight"></h4>
+							<select class="form-select p-2 bd-highlight" id="inputGroupSelect01" style="max-width: 80px"
+								 th:field="*{rating}">
+								<option th:value="0">0</option>
+								<option th:value="1">1</option>
+								<option th:value="2">2</option>
+								<option th:value="3">3</option>
+								<option th:value="4">4</option>
+								<option th:value="5">5</option>
+							</select>
+						</div>
+						<textarea type="text" class="form-control" rows="5"
+							id="reviewText" th:field="*{reviewText}" th:text="${reviewTextForEdit}"></textarea>
+						<input type="submit" class="btn btn-primary mt-3" th:value="#{confirm}">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div>
+			<table class="border text-center table">
+				<thead class="border table-dark">
+					<tr>
+						<th class="border" scope="col" th:text="#{username}"></th>
+						<th class="border" scope="col" th:text="#{review}"></th>
+						<th class="border" scope="col" th:text="#{rating}"></th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="reviewResult : ${reviewResults}">
+						<td class="border" th:text="${reviewResult.user.login}"></td>
+						<td class="border" th:text="${reviewResult.reviewText}"></td>
+						<td class="border" th:text="${reviewResult.rating}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

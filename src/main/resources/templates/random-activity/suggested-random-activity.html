@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default-layout}">
+<head>
+<title>Suggested Activity</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h4 th:text="#{suggested_activity}"></h4>
+		<table class="border text-center table">
+			<thead class="border table-dark">
+				<tr>
+					<th class="border" scope="col" th:text="#{description}"></th>
+					<th class="border" scope="col" th:text="#{type}"></th>
+					<th class="border" scope="col" th:text="#{number_participants}"></th>
+					<th class="border" scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="border" th:text="${randomActivity.activity}"></td>
+					<td class="border" th:text="${randomActivity.type}"></td>
+					<td class="border" th:text="${randomActivity.participants}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

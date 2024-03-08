@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default-layout}">
+  <head>
+    <title>Newsletter</title>
+  </head>
+  <body>
+    <div layout:fragment="content" class="text-center">
+      <h5>Successfully subscribed!</h5>
+      <a th:href="@{/newsletter-subscriber/{id}(id=${newsletterSubscriber.id})}">Edit your subscription</a>
+    </div>
+  </body>
+</html>

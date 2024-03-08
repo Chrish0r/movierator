@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default-layout}">
+  <head>
+    <title th:text="#{actors_search_result}"></title>
+  </head>
+  <body>
+    <div layout:fragment="content" class="mt-8">
+      <form action="#" th:action="@{/search-actor}" method="GET" class="my-4 container" style="max-width: 350px">
+        <div class="row my-2">
+          <input type="text" name="searchTerm" required class="form-control" th:placeholder="#{actor_name}" />
+        </div>
+        <div class="row my-2">
+          <button type="submit" class="btn btn-primary" th:value="#{search}" th:text="#{search}"></button>
+        </div>
+      </form>
+      <h2 th:text="#{results} + ':'"></h2>
+      <div th:each="result : ${results}" class="row result">
+        <div class="col">
+          <h5 th:text="${result.name}"></h5>
+        </div>
+        <div class="col">
+          <a th:href="${'/actor/' + result.id}" th:text="#{go_to}"></a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

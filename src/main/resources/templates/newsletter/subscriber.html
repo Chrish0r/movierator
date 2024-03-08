@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default-layout}">
+  <head>
+    <title>Newsletter</title>
+  </head>
+  <body>
+    <div layout:fragment="content" class="text-center">
+      <h3>Newsletter Subscriber!</h3>
+      <div style="max-width: 480px" class="mx-auto">
+        <form action="#" th:action="@{/newsletter-subscriber/{id}(id=${id})}" th:object="${newsletterSubscriber}" th:method="put">
+          <div class="form-group">
+            <input
+              type="email"
+              th:field="*{email}"
+              required
+              class="form-control"
+              th:errorclass="is-invalid"
+              placeholder="Email Address"
+            />
+            <small th:if="${#fields.hasErrors('email')}" class="invalid-feedback" th:errors="*{email}"></small>
+          </div>
+          <div class="form-group mt-4">
+            <button type="submit" class="btn btn-primary" th:text="#{update}"></button>
+          </div>
+        </form>
+				<form action="#" th:action="@{/newsletter-subscriber/{id}(id=${id})}" th:object="${newsletterSubscriber}" th:method="delete">
+					<div class="form-group mt-4">
+            <button type="submit" class="btn btn-danger" th:text="#{delete}"></button>
+          </div>
+				</form>
+      </div>
+    </div>
+  </body>
+</html>

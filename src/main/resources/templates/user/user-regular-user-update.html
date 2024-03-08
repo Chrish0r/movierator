@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default-layout}">
+<head>
+<title>Update Email</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<br> <Br>
+		<div style="width: 60%" align="left">
+
+			<h1>Update Your Email</h1>
+
+			<form th:object="${regularUserForm}"
+				th:action="@{/user/regular-user/update/process}" method="post">
+
+				<input type="hidden" th:field="*{user.id}" id="user.id"> <input
+					type="hidden" th:field="*{id}" id="id">
+
+			<div class="form-group">
+	           <label for="user.email">Email</label> 
+	           <input id="user.email" type="email" class="form-control" th:errorclass="is-invalid" placeholder="Enter email"
+	                   th:field="*{user.email}"/>
+	                   
+	            <p class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('user.email')}"
+	               th:text="${#strings.listJoin(#fields.errors('user.email'), ', ')}" />
+	             
+	        </div>
+
+				<button type="submit" class="btn btn-primary">Update Email</button>
+				<button type="reset">Reset</button>
+			</form>
+
+		</div>
+	</div>
+
+</body>
+</html>

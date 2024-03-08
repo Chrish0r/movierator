@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default-layout}">
+<head>
+<title>Home</title>
+<meta  http-equiv="refresh" content="3; URL=/">
+</head>
+<body>
+	<div class="container">
+		<div class="d-flex bd-highlight mb-3">
+			<div layout:fragment="header">
+
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active"><a class="nav-link"
+								th:href="@{/}">Home</a></li>
+
+							<li><a style="margin-right: 10px;" class="btn btn-success"
+								th:href="@{/login}">Login</a></li>
+							<li><a style="margin-right: 10px;" class="btn btn-primary"
+								th:href="@{/user/add}">Register</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div layout:fragment="languageSelector">
+				<div class="ms-auto p-2 bd-highlight">
+					<select class="form-select" id="locales">
+						<option selected value="" th:text="#{change_language}"></option>
+						<option value="de" th:text="#{german}"></option>
+						<option value="eng" th:text="#{english}"></option>
+					</select>
+				</div>
+			</div>
+
+		</div>
+		<div layout:fragment="content">
+			<div class="alert alert-danger" role="alert">
+				<h4 th:text="#{user_account_deleted}"></h4>
+			</div>
+			<div class="alert alert-info" role="alert">
+				<h5 th:text="#{confirmation_email_sent}"></h5>
+			</div>
+		</div>
+	</div>
+	<div id="footer" class="text-center mt-auto">
+		<hr>
+		Copyright &copy; OTH-R IM
+	</div>
+</body>
+</html>

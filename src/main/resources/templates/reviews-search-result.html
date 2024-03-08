@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default-layout}">
+<head>
+<title>Reviews</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h4
+			th:text="#{ten_latest_ratings} + ' ' + #{by} + ' ' + ${user.login}"></h4>
+		<table class="border text-center table">
+			<thead class="border table-dark">
+				<tr>
+					<th class="border" scope="col" th:text="#{rating}"></th>
+					<th class="border" scope="col" th:text="#{review}"></th>
+					<th class="border" scope="col" th:text="#{date}"></th>
+					<th class="border" scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="result : ${results}">
+					<td class="border" th:text="${result.rating}"></td>
+					<td class="border" th:text="${result.reviewText}"></td>
+					<td class="border" th:text="${result.date}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</body>
+</html>

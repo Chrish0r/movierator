@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	layout:decorate="~{layouts/default-layout}">
+<head>
+<title>Home</title>
+</head>
+<body>
+	<div layout:fragment="content" class="text-center">
+		<h1 class="mt-5">
+			<em>MovieRator</em>
+		</h1>
+		<div class="container text-start my-4" style="max-width: 350px">
+			<div>
+				<h4 th:text="#{search_movies}"></h4>
+				<form action="#" th:action="@{/search-media}" method="GET">
+					<div class="row my-2">
+						<input type="text" name="searchTerm" th:value="${searchTerm}"
+							required class="form-control"
+							th:placeholder="#{movie_series_title}" />
+					</div>
+					<div class="row my-2">
+						<button type="submit" class="btn btn-primary" th:text="#{search}"></button>
+					</div>
+				</form>
+			</div>
+			<div class="mt-4">
+				<h4 th:text="#{search_actor}"></h4>
+				<form action="#" th:action="@{/search-actor}" method="GET">
+					<div class="row my-2">
+						<input type="text" name="searchTerm" required
+							th:value="${searchTerm}" class="form-control"
+							th:placeholder="#{actor_name}" />
+					</div>
+					<div class="row my-2">
+						<button type="submit" class="btn btn-primary" th:text="#{search}"></button>
+					</div>
+				</form>
+			</div>
+			<div class="mt-4">
+				<h4 th:text="#{search_reviews}"></h4>
+				<form action="#" th:action="@{/search-reviews}" method="GET">
+					<div class="row my-2">
+						<input type="text" name="searchTerm" required
+							th:value="${searchTerm}" class="form-control"
+							th:placeholder="#{user_name}" />
+					</div>
+					<div class="row my-2">
+						<button type="submit" class="btn btn-primary" th:text="#{search}"></button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="container mt-5 text-start">
+			<div class="row">
+				<h4 th:text="#{sub_newsletter}"></h4>
+			</div>
+			<form action="#" th:action="@{/newsletter-subscriber}"
+				th:object="${newsletterSubscriber}" method="post">
+				<div class="row">
+					<div class="col-3">
+						<input type="email" th:field="*{email}" required
+							class="form-control" th:errorclass="is-invalid"
+							placeholder="Email Address" />
+						<div th:if="${#fields.hasErrors('email')}"
+							class="invalid-feedback" th:errors="*{email}">Test</div>
+					</div>
+					<div class="col-7">
+						<button class="btn btn-secondary" th:text="#{subscribe}"></button>
+					</div>
+				</div>
+			</form>
+			<div class="align-self-center mt-4 py-2 px-2 border border-dark">
+				<h4 th:text="#{joke}"></h4>
+				<div class="" id="exampleFormControlTextarea1" rows="3"
+					th:text="${randomJoke.setup + ' ' + randomJoke.punchline}" disabled
+					readonly></div>
+			</div>
+
+			<div>
+			<br>
+				<h4 th:text="#{bored_activity}"></h4>
+				<a style="margin-right: 10px;"
+					class="btn btn-primary" th:text="#{suggested_activity}" th:href="@{/api/activity/}"></a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
